@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import dbConnect from '@/lib/mongodb';
 import Lead from '@/models/Lead';
-import User from '@/models/User';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -14,7 +13,7 @@ export async function GET(request: NextRequest) {
 
     await dbConnect();
 
-    let matchQuery: any = {};
+    const matchQuery: Record<string, unknown> = {};
     
     // If user is employee, only show their assigned leads
     if (session.user.role === 'employee') {

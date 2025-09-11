@@ -3,7 +3,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import dbConnect from '@/lib/mongodb';
 import Lead from '@/models/Lead';
-import User from '@/models/User';
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,7 +17,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     const assignedTo = searchParams.get('assignedTo');
 
-    let query: any = {};
+    const query: Record<string, unknown> = {};
     
     // If user is employee, only show their assigned leads
     if (session.user.role === 'employee') {

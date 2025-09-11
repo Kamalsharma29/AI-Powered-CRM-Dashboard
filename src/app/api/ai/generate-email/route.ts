@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { leadName, leadCompany, leadEmail, emailType, customPrompt, leadStatus } = await request.json();
+    const { leadName, leadCompany, emailType, customPrompt, leadStatus } = await request.json();
 
     if (!leadName || !emailType) {
       return NextResponse.json(
@@ -58,11 +58,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ email: generatedEmail });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('AI email generation error:', error);
     
     // Check if it's an API key issue
-    if (error?.status === 400 || error?.message?.includes('API key')) {
+    if ((error as Error & { status?: number })?.status === 400 || (error as Error)?.message?.includes('API key')) {
       return NextResponse.json(
         { error: 'Invalid or missing Gemini API key. Please check your GEMINI_API_KEY in .env.local' },
         { status: 400 }

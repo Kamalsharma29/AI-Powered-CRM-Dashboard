@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/User';
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession();
     if (!session) {
@@ -12,12 +12,13 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     await dbConnect();
 
+    const resolvedParams = await params;
     // Users can only view their own profile unless they're admin
-    if (session.user.role !== 'admin' && session.user.id !== params.id) {
+    if (session.user.role !== 'admin' && session.user.id !== resolvedParams.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const user = await User.findById(params.id, '-password');
+    const user = await User.findById(resolvedParams.id, '-password');
 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -33,7 +34,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession();
     if (!session) {
@@ -44,8 +45,9 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
     await dbConnect();
 
+    const resolvedParams = await params;
     // Users can only update their own profile unless they're admin
-    if (session.user.role !== 'admin' && session.user.id !== params.id) {
+    if (session.user.role !== 'admin' && session.user.id !== resolvedParams.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -59,7 +61,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     delete updateData.password;
 
     const user = await User.findByIdAndUpdate(
-      params.id,
+      resolvedParams.id,
       updateData,
       { new: true, runValidators: true }
     ).select('-password');
@@ -78,7 +80,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession();
     if (!session || session.user.role !== 'admin') {
@@ -87,15 +89,16 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
     await dbConnect();
 
+    const resolvedParams = await params;
     // Don't allow deleting yourself
-    if (session.user.id === params.id) {
+    if (session.user.id === resolvedParams.id) {
       return NextResponse.json(
         { error: 'Cannot delete your own account' },
         { status: 400 }
       );
     }
 
-    const user = await User.findByIdAndDelete(params.id);
+    const user = await User.findByIdAndDelete(resolvedParams.id);
 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });

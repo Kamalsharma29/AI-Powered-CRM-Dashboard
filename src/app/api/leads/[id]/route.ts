@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import dbConnect from '@/lib/mongodb';
 import Lead from '@/models/Lead';
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession();
     if (!session) {
@@ -12,7 +12,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     await dbConnect();
 
-    let query: any = { _id: params.id };
+    const resolvedParams = await params;
+    const query: Record<string, unknown> = { _id: resolvedParams.id };
     
     // If user is employee, only show their assigned leads
     if (session.user.role === 'employee') {
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession();
     if (!session) {
@@ -46,7 +47,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
     await dbConnect();
 
-    let query: any = { _id: params.id };
+    const resolvedParams = await params;
+    const query: Record<string, unknown> = { _id: resolvedParams.id };
     
     // If user is employee, only allow updating their assigned leads
     if (session.user.role === 'employee') {
@@ -80,7 +82,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession();
     if (!session || session.user.role !== 'admin') {
@@ -89,7 +91,8 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
     await dbConnect();
 
-    const lead = await Lead.findByIdAndDelete(params.id);
+    const resolvedParams = await params;
+    const lead = await Lead.findByIdAndDelete(resolvedParams.id);
 
     if (!lead) {
       return NextResponse.json({ error: 'Lead not found' }, { status: 404 });

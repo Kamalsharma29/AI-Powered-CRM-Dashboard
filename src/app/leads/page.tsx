@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
-import { Plus, Edit, Trash2, Mail, Phone, Building, Calendar, DollarSign, User } from 'lucide-react';
+import { Plus, Edit, Trash2, Mail, Phone, Building, User } from 'lucide-react';
 
 interface Lead {
   _id: string;
@@ -59,11 +59,7 @@ const Leads = () => {
   });
   const [statusFilter, setStatusFilter] = useState('');
 
-  useEffect(() => {
-    fetchLeads();
-  }, [statusFilter]);
-
-  const fetchLeads = async () => {
+  const fetchLeads = useCallback(async () => {
     try {
       const url = statusFilter ? `/api/leads?status=${statusFilter}` : '/api/leads';
       const response = await fetch(url);
@@ -74,7 +70,11 @@ const Leads = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [statusFilter]);
+
+  useEffect(() => {
+    fetchLeads();
+  }, [fetchLeads]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

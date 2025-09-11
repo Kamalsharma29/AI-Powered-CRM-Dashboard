@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
-import { Mail, Wand2, Copy, Send, User, Building } from 'lucide-react';
+import { Mail, Wand2, Copy, User, Building } from 'lucide-react';
 
 interface EmailTemplate {
   subject: string;
@@ -11,7 +10,6 @@ interface EmailTemplate {
 }
 
 const AIEmailGenerator = () => {
-  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [generatedEmail, setGeneratedEmail] = useState<EmailTemplate | null>(null);
   const [formData, setFormData] = useState({
@@ -266,7 +264,7 @@ const AIEmailGenerator = () => {
               <div className="flex flex-col items-center justify-center h-64 text-gray-500 dark:text-gray-400">
                 <Mail className="h-12 w-12 mb-4" />
                 <p className="text-center">
-                  Fill out the form and click "Generate Email" to create a personalized email using AI.
+                  Fill out the form and click &quot;Generate Email&quot; to create a personalized email using AI.
                 </p>
               </div>
             )}

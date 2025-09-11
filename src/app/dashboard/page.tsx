@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
-import { Users, DollarSign, TrendingUp, Mail, Calendar, Target } from 'lucide-react';
+import { Users, DollarSign, TrendingUp, Target } from 'lucide-react';
 
 interface Analytics {
   summary: {
@@ -49,15 +49,7 @@ const Dashboard = () => {
 
   const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'];
 
-  const statusColors: { [key: string]: string } = {
-    'new': '#6B7280',
-    'contacted': '#3B82F6',
-    'qualified': '#10B981',
-    'proposal': '#F59E0B',
-    'negotiation': '#8B5CF6',
-    'closed-won': '#10B981',
-    'closed-lost': '#EF4444'
-  };
+
 
   if (loading) {
     return (
@@ -181,7 +173,6 @@ const Dashboard = () => {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={(entry: any) => `${entry.source} ${(entry.percent * 100).toFixed(0)}%`}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="count"

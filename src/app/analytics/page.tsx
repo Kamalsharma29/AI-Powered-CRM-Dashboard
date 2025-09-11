@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
-import { TrendingUp, Users, DollarSign, Target, Calendar, Award, User } from 'lucide-react';
+import { Users, DollarSign, Target, Award, User } from 'lucide-react';
 
 interface Analytics {
   summary: {
@@ -53,15 +53,7 @@ const Analytics = () => {
 
   const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'];
 
-  const statusColors: { [key: string]: string } = {
-    'new': '#6B7280',
-    'contacted': '#3B82F6',
-    'qualified': '#10B981',
-    'proposal': '#F59E0B',
-    'negotiation': '#8B5CF6',
-    'closed-won': '#10B981',
-    'closed-lost': '#EF4444'
-  };
+
 
   if (loading) {
     return (
@@ -117,7 +109,7 @@ const Analytics = () => {
                 <div className="ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 dark:text-gray-300 truncate">Total Leads</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics.summary.totalLeads}</dd>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics?.summary.totalLeads || 0}</dd>
                   </dl>
                 </div>
               </div>
@@ -133,7 +125,7 @@ const Analytics = () => {
                 <div className="ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 dark:text-gray-300 truncate">Conversion Rate</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics.summary.conversionRate}%</dd>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics?.summary.conversionRate || 0}%</dd>
                   </dl>
                 </div>
               </div>
@@ -149,7 +141,7 @@ const Analytics = () => {
                 <div className="ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 dark:text-gray-300 truncate">Pipeline Value</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">${analytics.summary.pipelineValue.toLocaleString()}</dd>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">${analytics?.summary.pipelineValue?.toLocaleString() || '0'}</dd>
                   </dl>
                 </div>
               </div>
@@ -165,7 +157,7 @@ const Analytics = () => {
                 <div className="ml-5 w-0 flex-1">
                   <dl>
                     <dt className="text-sm font-medium text-gray-500 dark:text-gray-300 truncate">Closed Won</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics.summary.closedWonLeads}</dd>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics?.summary.closedWonLeads || 0}</dd>
                   </dl>
                 </div>
               </div>
@@ -179,7 +171,7 @@ const Analytics = () => {
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow dark:shadow-gray-700">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Leads by Status</h3>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={analytics.leadsByStatus}>
+              <BarChart data={analytics?.leadsByStatus || []}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="status" />
                 <YAxis />
@@ -195,16 +187,15 @@ const Analytics = () => {
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={analytics.leadsBySource}
+                  data={analytics?.leadsBySource || []}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={(entry: any) => `${entry.source} ${(entry.percent * 100).toFixed(0)}%`}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="count"
                 >
-                  {analytics.leadsBySource.map((entry, index) => (
+                  {analytics?.leadsBySource?.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -218,7 +209,7 @@ const Analytics = () => {
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow dark:shadow-gray-700">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Monthly Lead Trend</h3>
           <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={analytics.monthlyTrend}>
+            <LineChart data={analytics?.monthlyTrend || []}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis yAxisId="left" />
@@ -231,7 +222,7 @@ const Analytics = () => {
         </div>
 
         {/* Top Performers */}
-        {analytics.topPerformers.length > 0 && (
+        {analytics?.topPerformers && analytics.topPerformers.length > 0 && (
           <div className="bg-white dark:bg-gray-800 shadow dark:shadow-gray-700 rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Top Performers</h3>
@@ -257,7 +248,7 @@ const Analytics = () => {
                     </tr>
                   </thead>
                   <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    {analytics.topPerformers.map((performer, index) => (
+                    {analytics?.topPerformers?.map((performer, index) => (
                       <tr key={index}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">

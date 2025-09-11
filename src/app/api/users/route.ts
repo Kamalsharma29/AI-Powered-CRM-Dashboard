@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/User';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession();
     if (!session || session.user.role !== 'admin') {
