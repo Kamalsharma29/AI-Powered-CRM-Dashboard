@@ -346,11 +346,11 @@ const Settings = () => {
                     </div>
                     
                     <div className="mt-6 flex justify-center space-x-4">
-                      <a href="https://github.com/kamal-sharma" target="_blank" rel="noopener noreferrer" 
+                      <a href="https://github.com/Kamalsharma29" target="_blank" rel="noopener noreferrer" 
                          className="px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-md hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors">
                         GitHub
                       </a>
-                      <a href="https://linkedin.com/in/kamal-sharma" target="_blank" rel="noopener noreferrer"
+                      <a href="https://www.linkedin.com/in/kamalsharma29/" target="_blank" rel="noopener noreferrer"
                          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
                         LinkedIn
                       </a>

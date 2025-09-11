@@ -196,7 +196,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-**Kamal Sharma** - [GitHub](https://github.com/Kamalsharma29)
+**Kamal Sharma** - [GitHub](https://github.com/Kamalsharma29) | [LinkedIn](https://www.linkedin.com/in/kamalsharma29/)
 
 Project Link: [https://github.com/Kamalsharma29/AI-Powered-CRM-Dashboard](https://github.com/Kamalsharma29/AI-Powered-CRM-Dashboard)
 
