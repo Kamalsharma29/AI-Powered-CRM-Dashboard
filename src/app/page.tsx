@@ -177,7 +177,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center">
             <BarChart3 className="h-6 w-6 text-blue-600" />
-            <span className="ml-2 text-gray-500 dark:text-gray-400">AI CRM Dashboard - Powered by Next.js & Google Gemini AI</span>
+            <span className="ml-2 text-gray-500 dark:text-gray-400">AI CRM Dashboard - Powered by Next.js & Google Gemini AI | Developed by <span className="font-medium text-blue-600 dark:text-blue-400">Kamal Sharma</span></span>
           </div>
         </div>
       </footer>

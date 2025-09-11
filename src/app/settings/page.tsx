@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
-import { Users, Settings as SettingsIcon, Shield, Mail, Database, Key } from 'lucide-react';
+import { Users, Settings as SettingsIcon, Shield, Mail, Database, Key, Code, Heart } from 'lucide-react';
 
 interface User {
   _id: string;
@@ -148,6 +148,17 @@ const Settings = () => {
               <SettingsIcon className="inline-block w-4 h-4 mr-2" />
               System Settings
             </button>
+            <button
+              onClick={() => setActiveTab('developer')}
+              className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'developer'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <Code className="inline-block w-4 h-4 mr-2" />
+              Developer Info
+            </button>
           </nav>
         </div>
 
@@ -289,7 +300,67 @@ const Settings = () => {
             </div>
           </div>
         )}
-      </div>
+
+        {/* Developer Info Tab */}
+        {activeTab === 'developer' && (
+          <div className="space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-white">Developer Information</h2>
+            
+            <div className="bg-white dark:bg-gray-800 shadow rounded-lg">
+              <div className="px-6 py-8">
+                <div className="text-center">
+                  <div className="mx-auto h-24 w-24 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center mb-4">
+                    <Code className="h-12 w-12 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Kamal Sharma</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6">Full Stack Developer & AI Enthusiast</p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">3+</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Years Experience</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">50+</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Projects Completed</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">10+</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Technologies</div>
+                    </div>
+                  </div>
+                  
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tech Stack Used</h4>
+                    <div className="flex flex-wrap justify-center gap-2 mb-6">
+                      {['Next.js 15', 'React 19', 'TypeScript', 'MongoDB', 'Tailwind CSS', 'Google Gemini AI', 'NextAuth.js'].map((tech) => (
+                        <span key={tech} className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <div className="flex justify-center items-center space-x-2 text-gray-600 dark:text-gray-400">
+                      <Heart className="h-4 w-4 text-red-500" />
+                      <span className="text-sm">Built with passion for modern web development</span>
+                    </div>
+                    
+                    <div className="mt-6 flex justify-center space-x-4">
+                      <a href="https://github.com/kamal-sharma" target="_blank" rel="noopener noreferrer" 
+                         className="px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-md hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors">
+                        GitHub
+                      </a>
+                      <a href="https://linkedin.com/in/kamal-sharma" target="_blank" rel="noopener noreferrer"
+                         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                        LinkedIn
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
       {/* Add User Modal */}
       {showAddUser && (
@@ -359,6 +430,7 @@ const Settings = () => {
           </div>
         </div>
       )}
+      </div>
     </Layout>
   );
 };

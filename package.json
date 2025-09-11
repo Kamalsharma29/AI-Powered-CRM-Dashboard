@@ -2,6 +2,12 @@
   "name": "crm-dashboard",
   "version": "0.1.0",
   "private": true,
+  "author": "Kamal Sharma",
+  "description": "AI-Powered CRM Dashboard with lead management, analytics, and automated email generation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kamal-sharma/crm-dashboard"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

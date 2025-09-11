@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
     const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
     
-    const fullPrompt = `You are a professional sales email writer for a CRM company. Write personalized, engaging emails that convert leads into customers. Always include a clear subject line and professional signature placeholder.\n\n${prompt}\n\nPlease format the response as:\nSubject: [subject line]\n\n[email body]`;
+    const fullPrompt = `You are a professional sales email writer for a CRM company. Write personalized, engaging emails that convert leads into customers. Always include a clear subject line and professional signature.\n\n${prompt}\n\nPlease format the response as:\nSubject: [subject line]\n\n[email body]\n\nBest regards,\nKamal Sharma\nCRM Solutions Specialist\nEmail: kamal.sharma@crm-company.com\nPhone: +1-555-0123\nWebsite: www.crm-company.com`;
     
     const result = await model.generateContent(fullPrompt);
     const response = await result.response;
