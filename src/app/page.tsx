@@ -12,9 +12,22 @@ export default function Home() {
 
   useEffect(() => {
     if (status === 'loading') return;
-    if (session) {
-      // Use replace instead of push to avoid navigation conflicts
-      router.replace('/dashboard');
+    
+    // Only redirect if we have a valid session and we're not already navigating
+    if (session && status === 'authenticated') {
+      // Use a longer timeout to ensure the session is fully loaded
+      const timer = setTimeout(() => {
+        try {
+          router.replace('/dashboard');
+        } catch (error) {
+          console.warn('Navigation error:', error);
+          // Fallback: try again after a longer delay
+          setTimeout(() => {
+            window.location.href = '/dashboard';
+          }, 1000);
+        }
+      }, 200);
+      return () => clearTimeout(timer);
     }
   }, [session, status, router]);
 
