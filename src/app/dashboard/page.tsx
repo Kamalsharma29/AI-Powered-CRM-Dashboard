@@ -70,7 +70,7 @@ const Dashboard = () => {
     return (
       <Layout>
         <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400">Failed to load analytics data.</p>
+          <p className="text-gray-600 dark:text-gray-400">Failed to load analytics data.</p>
         </div>
       </Layout>
     );
@@ -84,7 +84,7 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400">
             Dashboard
           </h1>
-          <p className="text-muted-foreground mt-2 text-lg">Welcome to your AI-powered CRM dashboard</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">Welcome to your AI-powered CRM dashboard</p>
         </div>
 
         {/* Key Metrics */}
@@ -97,8 +97,8 @@ const Dashboard = () => {
                     <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Total Leads</p>
-                    <p className="text-2xl font-bold text-foreground">{analytics.summary.totalLeads}</p>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Leads</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{analytics.summary.totalLeads}</p>
                   </div>
                 </div>
                 <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
@@ -114,8 +114,8 @@ const Dashboard = () => {
                     <Target className="h-6 w-6 text-green-600 dark:text-green-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Conversion Rate</p>
-                    <p className="text-2xl font-bold text-foreground">{analytics.summary.conversionRate}%</p>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Conversion Rate</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{analytics.summary.conversionRate}%</p>
                   </div>
                 </div>
                 <div className="h-12 w-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
@@ -131,8 +131,8 @@ const Dashboard = () => {
                     <DollarSign className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Pipeline Value</p>
-                    <p className="text-2xl font-bold text-foreground">${analytics.summary.pipelineValue.toLocaleString()}</p>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Pipeline Value</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">${analytics.summary.pipelineValue.toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="h-12 w-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
@@ -148,8 +148,8 @@ const Dashboard = () => {
                     <TrendingUp className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Closed Won</p>
-                    <p className="text-2xl font-bold text-foreground">{analytics.summary.closedWonLeads}</p>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Closed Won</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{analytics.summary.closedWonLeads}</p>
                   </div>
                 </div>
                 <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
