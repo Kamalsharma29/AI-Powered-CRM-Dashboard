@@ -55,7 +55,12 @@ const Dashboard = () => {
     return (
       <Layout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 dark:border-blue-400"></div>
+          <div className="relative">
+            <div className="spinner h-16 w-16"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="h-4 w-4 bg-primary rounded-full animate-pulse-custom"></div>
+            </div>
+          </div>
         </div>
       </Layout>
     );
@@ -75,73 +80,79 @@ const Dashboard = () => {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600">Welcome to your AI-powered CRM dashboard</p>
+        <div className="animate-fade-in">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-purple-400">
+            Dashboard
+          </h1>
+          <p className="text-muted-foreground mt-2 text-lg">Welcome to your AI-powered CRM dashboard</p>
         </div>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <Users className="h-6 w-6 text-gray-400" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-in">
+          <div className="group bg-white dark:bg-gray-800 overflow-hidden shadow-md hover:shadow-xl rounded-xl border border-gray-200 dark:border-gray-700 hover-lift transition-all duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                    <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Total Leads</p>
+                    <p className="text-2xl font-bold text-foreground">{analytics.summary.totalLeads}</p>
+                  </div>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Leads</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics.summary.totalLeads}</dd>
-                  </dl>
-                </div>
+                <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow dark:shadow-gray-700 rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <Target className="h-6 w-6 text-green-400" />
+          <div className="group bg-white dark:bg-gray-800 overflow-hidden shadow-md hover:shadow-xl rounded-xl border border-gray-200 dark:border-gray-700 hover-lift transition-all duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                    <Target className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Conversion Rate</p>
+                    <p className="text-2xl font-bold text-foreground">{analytics.summary.conversionRate}%</p>
+                  </div>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Conversion Rate</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics.summary.conversionRate}%</dd>
-                  </dl>
-                </div>
+                <div className="h-12 w-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow dark:shadow-gray-700 rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <DollarSign className="h-6 w-6 text-blue-400" />
+          <div className="group bg-white dark:bg-gray-800 overflow-hidden shadow-md hover:shadow-xl rounded-xl border border-gray-200 dark:border-gray-700 hover-lift transition-all duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                    <DollarSign className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Pipeline Value</p>
+                    <p className="text-2xl font-bold text-foreground">${analytics.summary.pipelineValue.toLocaleString()}</p>
+                  </div>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Pipeline Value</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">${analytics.summary.pipelineValue.toLocaleString()}</dd>
-                  </dl>
-                </div>
+                <div className="h-12 w-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow dark:shadow-gray-700 rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <TrendingUp className="h-6 w-6 text-green-400" />
+          <div className="group bg-white dark:bg-gray-800 overflow-hidden shadow-md hover:shadow-xl rounded-xl border border-gray-200 dark:border-gray-700 hover-lift transition-all duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                    <TrendingUp className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Closed Won</p>
+                    <p className="text-2xl font-bold text-foreground">{analytics.summary.closedWonLeads}</p>
+                  </div>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Closed Won</dt>
-                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{analytics.summary.closedWonLeads}</dd>
-                  </dl>
-                </div>
+                <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
               </div>
             </div>
           </div>
