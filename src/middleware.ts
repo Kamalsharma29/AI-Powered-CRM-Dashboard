@@ -8,7 +8,6 @@ const rateLimiter = createRateLimiter();
 
 // Protected routes that require authentication
 const protectedRoutes = [
-  '/',
   '/dashboard',
   '/leads',
   '/ai-email',
