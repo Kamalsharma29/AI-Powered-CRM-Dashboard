@@ -1,46 +1,15 @@
-'use client';
-
-import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '@/lib/auth';
 import Link from 'next/link';
 import { BarChart3, Users, Mail, Zap, Shield, TrendingUp } from 'lucide-react';
 
-export default function Home() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === 'loading') return;
-    
-    // Only redirect if we have a valid session and we're not already navigating
-    if (session && status === 'authenticated') {
-      // Use a longer timeout to ensure the session is fully loaded
-      const timer = setTimeout(() => {
-        try {
-          router.replace('/dashboard');
-        } catch (error) {
-          console.warn('Navigation error:', error);
-          // Fallback: try again after a longer delay
-          setTimeout(() => {
-            window.location.href = '/dashboard';
-          }, 1000);
-        }
-      }, 200);
-      return () => clearTimeout(timer);
-    }
-  }, [session, status, router]);
-
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  
+  // Server-side redirect for authenticated users
   if (session) {
-    return null; // Will redirect to dashboard
+    redirect('/dashboard');
   }
 
   return (
